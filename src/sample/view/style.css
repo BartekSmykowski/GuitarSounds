@@ -1,0 +1,28 @@
+.button {
+    -fx-font: 16px "Serif";
+    -fx-padding: 2;
+    -fx-background-color: #FFFF55;
+    -fx-border-color: #000000;
+    -fx-border-radius: 0;
+    -fx-pref-width: 35px;
+}
+
+#CButton {
+    -fx-background-color: #444477
+}
+
+#CisButton {
+    -fx-background-color: #447744
+}
+
+#DButton {
+    -fx-background-color: #774444
+}
+
+#DisButton {
+    -fx-background-color: #447777
+}
+
+#EButton {
+    -fx-background-color: #774477
+}
