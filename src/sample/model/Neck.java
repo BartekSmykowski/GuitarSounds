@@ -20,16 +20,20 @@ public class Neck {
         }
     }
 
+    public Neck(ArrayList<Sound> firstSounds){
+        this(firstSounds, 19);
+    }
+
     public Neck(){
         this(SoundsNames.getStandardGuitarSounds(), 19);
     }
 
     public Collection<Collection<SoundOnNeck>> getSounds(){
-        Collection<Collection<SoundOnNeck>> buttons = new ArrayList<>();
+        Collection<Collection<SoundOnNeck>> sounds = new ArrayList<>();
         for(MusicString string : guitarStrings.values()){
-            buttons.add(string.getSounds());
+            sounds.add(string.getSounds());
         }
-        return buttons;
+        return sounds;
     }
 
 }

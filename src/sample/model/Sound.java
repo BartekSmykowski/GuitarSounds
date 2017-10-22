@@ -13,7 +13,6 @@ public class Sound {
     public Sound(SoundsNames name, int octave){
         this.name = name;
         this.octave = new SimpleIntegerProperty(octave);
-
     }
 
     public SoundsNames getName(){

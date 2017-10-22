@@ -12,10 +12,10 @@ public enum SoundsNames {
         ArrayList<Sound> sounds = new ArrayList<>(6);
         sounds.add(new Sound(E, 0));
         sounds.add(new Sound(A, 0));
-        sounds.add(new Sound(D, 0));
-        sounds.add(new Sound(G, 0));
-        sounds.add(new Sound(H, 0));
-        sounds.add(new Sound(E, 1));
+        sounds.add(new Sound(D, 1));
+        sounds.add(new Sound(G, 1));
+        sounds.add(new Sound(H, 1));
+        sounds.add(new Sound(E, 2));
         return sounds;
     }
 }

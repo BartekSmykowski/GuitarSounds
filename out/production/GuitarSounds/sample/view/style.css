@@ -1,10 +1,15 @@
 .button {
-    -fx-font: 16px "Serif";
+    -fx-font: 14px "Serif";
     -fx-padding: 2;
     -fx-background-color: #FFFF55;
     -fx-border-color: #000000;
     -fx-border-radius: 0;
     -fx-pref-width: 35px;
+}
+
+#Chord {
+    -fx-font: 14px "Serif";
+    -fx-pref-width: 100px;
 }
 
 #CButton {
@@ -25,4 +30,32 @@
 
 #EButton {
     -fx-background-color: #774477
+}
+
+#FButton {
+    -fx-background-color: #774400
+}
+
+#FisButton {
+    -fx-background-color: #770077
+}
+
+#GButton {
+    -fx-background-color: #004477
+}
+
+#GisButton {
+    -fx-background-color: #7744FF
+}
+
+#AButton {
+    -fx-background-color: #77FF77
+}
+
+#BButton {
+    -fx-background-color: #FF4477
+}
+
+#HButton {
+    -fx-background-color: #CCCCCC
 }
