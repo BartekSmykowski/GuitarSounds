@@ -1,12 +1,6 @@
 package sample.model;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-
-import java.io.File;
 
 /**
  * Created by Bartek on 22.10.2017.
@@ -19,13 +13,7 @@ public class SoundOnNeck extends Sound {
     public SoundOnNeck(SoundsNames name, int octave) {
         super(name, octave);
         button = new Button(name.toString() + octave);
-        EventHandler<MouseEvent> mouseEventEventHandler = event -> {
-            File soundFile = new File("src/resources/" + name.toString() + ".mp3");
-            Media media = new Media(soundFile.toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
-        };
-        button.setOnMouseClicked(mouseEventEventHandler);
+        button.setOnMouseClicked(event -> playSound());
         isHighlighted = false;
         changeHighlight();
     }

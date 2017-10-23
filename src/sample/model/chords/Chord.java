@@ -4,6 +4,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 import sample.model.Neck;
+import sample.model.Sound;
+import sample.model.SoundOnNeck;
 import sample.model.SoundsNames;
 
 import javafx.beans.binding.*;
@@ -37,19 +39,27 @@ public class Chord {
         button = new Button("Akord: " + firsSound.toString() + " " + type);
         button.textProperty().bind(Bindings.concat("Chord: ", firsSound, " ", type));
         button.setId("Chord");
-        button.setOnMouseClicked(event -> neck.getSounds().forEach(stringSounds -> stringSounds.forEach(stringSound -> {
-            boolean contains = false;
-            for(SoundsNames sound : includedSounds) {
-                if (stringSound.getName().equals(sound)) {
-                    contains = true;
-                }
+        button.setOnMouseClicked(event -> neck.getSounds().forEach(stringSounds -> {
+            stringSounds.forEach(this::highlightAllSounds);
+            for(SoundsNames sound : includedSounds){
+                new Sound(sound).playSound();
             }
-            if(contains){
-                stringSound.highlight();
-            }else{
-                stringSound.unhighlight();
             }
-        })));
+        ));
+    }
+
+    private void highlightAllSounds(SoundOnNeck stringSound) {
+        boolean contains = false;
+        for (SoundsNames sound : includedSounds) {
+            if (stringSound.getName().equals(sound)) {
+                contains = true;
+            }
+        }
+        if (contains) {
+            stringSound.highlight();
+        } else {
+            stringSound.unhighlight();
+        }
     }
 
     public Button getButton(){
