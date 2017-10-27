@@ -18,4 +18,13 @@ public enum SoundsNames {
         sounds.add(new Sound(E, 2));
         return sounds;
     }
+
+    public static ArrayList<Sound> getStandardUculeleSounds(){
+        ArrayList<Sound> sounds = new ArrayList<>(6);
+        sounds.add(new Sound(G, 0));
+        sounds.add(new Sound(C, 0));
+        sounds.add(new Sound(E, 1));
+        sounds.add(new Sound(A, 1));
+        return sounds;
+    }
 }

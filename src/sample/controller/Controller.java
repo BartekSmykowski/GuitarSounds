@@ -9,8 +9,7 @@ import sample.model.Neck;
 import sample.model.SoundOnNeck;
 import sample.model.SoundsNames;
 import sample.model.chords.Chord;
-import sample.model.chords.DurChord;
-import sample.model.chords.MolChord;
+import sample.model.chords.ChordsFactory;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,10 +63,18 @@ public class Controller {
         button.textProperty().unbind();
         button.setText("Light all.");
         vBox.getChildren().add(button);
-        DurChord chordcmol = new DurChord(SoundsNames.C, neck);
+        Chord chordcmol = ChordsFactory.produce(SoundsNames.E, "Mol", neck);
         vBox.getChildren().add(chordcmol.getButton());
-        MolChord chordcdur = new MolChord(SoundsNames.C, neck);
+        Chord chordcdur = ChordsFactory.produce(SoundsNames.E, "7dur", neck);
         vBox.getChildren().add(chordcdur.getButton());
+        Chord chordgdur = ChordsFactory.produce(SoundsNames.G, "7dur", neck);
+        vBox.getChildren().add(chordgdur.getButton());
+        Chord chordhmol = ChordsFactory.produce(SoundsNames.H, "mol", neck);
+        vBox.getChildren().add(chordhmol.getButton());
+        Chord chordhdur = ChordsFactory.produce(SoundsNames.H, "7dur", neck);
+        vBox.getChildren().add(chordhdur.getButton());
+        Chord adur = ChordsFactory.produce(SoundsNames.A, "dur", neck);
+        vBox.getChildren().add(adur.getButton());
         chordsButtonsPane.getChildren().add(vBox);
     }
 

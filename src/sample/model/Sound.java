@@ -13,14 +13,13 @@ import java.io.File;
 public class Sound {
     private SoundsNames name;
     private IntegerProperty octave;
-    private MediaPlayer mediaPlayer;
+    private Media media;
 
     public Sound(SoundsNames name, int octave){
         this.name = name;
         this.octave = new SimpleIntegerProperty(octave);
         File soundFile = new File("src/resources/" + name.toString() + ".mp3");
-        Media media = new Media(soundFile.toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
+        media = new Media(soundFile.toURI().toString());
     }
 
     public Sound(SoundsNames name){
@@ -28,6 +27,7 @@ public class Sound {
     }
 
     public void playSound() {
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
     }
 

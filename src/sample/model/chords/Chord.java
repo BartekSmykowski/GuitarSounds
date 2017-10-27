@@ -39,27 +39,26 @@ public class Chord {
         button = new Button("Akord: " + firsSound.toString() + " " + type);
         button.textProperty().bind(Bindings.concat("Chord: ", firsSound, " ", type));
         button.setId("Chord");
-        button.setOnMouseClicked(event -> neck.getSounds().forEach(stringSounds -> {
-            stringSounds.forEach(this::highlightAllSounds);
-            for(SoundsNames sound : includedSounds){
-                new Sound(sound).playSound();
-            }
-            }
-        ));
+        button.setOnMouseClicked(event ->{
+            neck.getSounds().forEach(stringSounds -> stringSounds.forEach(this::highlightIfIncluded));
+            play();
+        });
     }
 
-    private void highlightAllSounds(SoundOnNeck stringSound) {
-        boolean contains = false;
+    private void play() {
+        for(SoundsNames sound : includedSounds){
+            new Sound(sound).playSound();
+        }
+    }
+
+    private void highlightIfIncluded(SoundOnNeck stringSound) {
         for (SoundsNames sound : includedSounds) {
             if (stringSound.getName().equals(sound)) {
-                contains = true;
+                stringSound.highlight();
+                return;
             }
         }
-        if (contains) {
-            stringSound.highlight();
-        } else {
-            stringSound.unhighlight();
-        }
+        stringSound.unhighlight();
     }
 
     public Button getButton(){
