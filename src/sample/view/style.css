@@ -12,6 +12,11 @@
     -fx-pref-width: 100px;
 }
 
+#ChordGrab {
+    -fx-font: 14px "Serif";
+    -fx-pref-width: 120px;
+}
+
 #CButton {
     -fx-background-color: #444477
 }

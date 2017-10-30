@@ -15,15 +15,17 @@ public class Sound {
     private IntegerProperty octave;
     private Media media;
 
-    public Sound(SoundsNames name, int octave){
+    public Sound(SoundsNames name, int octave) {
         this.name = name;
         this.octave = new SimpleIntegerProperty(octave);
-        File soundFile = new File("src/resources/" + name.toString() + ".mp3");
+        File soundFile = new File("src/resources/" + name.toString() + octave + ".mp3");
+        if(!soundFile.exists())
+            soundFile = new File("src/resources/E0.mp3");
         media = new Media(soundFile.toURI().toString());
     }
 
     public Sound(SoundsNames name){
-        this(name, 0);
+        this(name, 1);
     }
 
     public void playSound() {

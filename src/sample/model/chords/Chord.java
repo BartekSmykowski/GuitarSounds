@@ -1,5 +1,6 @@
 package sample.model.chords;
 
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
@@ -8,7 +9,6 @@ import sample.model.Sound;
 import sample.model.SoundOnNeck;
 import sample.model.SoundsNames;
 
-import javafx.beans.binding.*;
 import java.util.ArrayList;
 
 /**
@@ -65,7 +65,7 @@ public class Chord {
         return button;
     }
 
-    public ArrayList<SoundsNames> getIncludedSounds(){
+    public ArrayList<SoundsNames> getIncludedSoundsNames(){
         return includedSounds;
     }
 
@@ -78,7 +78,7 @@ public class Chord {
     }
 
     public String getType(){
-        return type.toString();
+        return type.get();
     }
 
     public StringProperty typeProperty(){

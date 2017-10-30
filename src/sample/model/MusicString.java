@@ -24,4 +24,12 @@ public class MusicString {
     public Collection<SoundOnNeck> getSounds(){
         return sounds.values();
     }
+
+    public SoundOnNeck getSound(int i){
+        return sounds.get(i);
+    }
+
+    public int getNumberOfSounds() {
+        return sounds.size();
+    }
 }
