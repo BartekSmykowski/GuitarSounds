@@ -2,9 +2,11 @@ package sample.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
+import sample.model.melodies.NeckCoords;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Bartek on 20.10.2017.
@@ -30,15 +32,19 @@ public class Neck {
         this(SoundsNames.getStandardGuitarSounds(), 19);
     }
 
-    public Collection<Collection<SoundOnNeck>> getSounds(){
-        Collection<Collection<SoundOnNeck>> sounds = new ArrayList<>();
+    public void playSound(NeckCoords coords){
+        getStringSounds(coords.getString()).get(coords.getFret()).playSound();
+    }
+
+    public List<List<SoundOnNeck>> getSounds(){
+        List<List<SoundOnNeck>> sounds = new ArrayList<>();
         for(MusicString string : guitarStrings.values()){
             sounds.add(string.getSounds());
         }
         return sounds;
     }
 
-    public Collection getStringSounds(int i){
+    public List<SoundOnNeck> getStringSounds(int i){
         return guitarStrings.get(i).getSounds();
     }
 

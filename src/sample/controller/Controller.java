@@ -11,6 +11,8 @@ import sample.model.SoundsNames;
 import sample.model.chordGrab.ChordGrab;
 import sample.model.chords.Chord;
 import sample.model.chords.ChordsFactory;
+import sample.model.melodies.Melody;
+import sample.model.melodies.MelodyPlayer;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,11 +32,11 @@ public class Controller {
     }
 
     private void addNeckButtons() {
-        Collection<Collection<SoundOnNeck>> sounds = neck.getSounds();
+        List<List<SoundOnNeck>> sounds = neck.getSounds();
         VBox vBox = new VBox();
-        for(Collection<SoundOnNeck> stringSounds : sounds) {
+        for(int i = sounds.size() - 1; i >= 0; i--){
             HBox hBox = new HBox();
-            hBox.getChildren().addAll(stringSounds.stream().map(SoundOnNeck::getButton).collect(Collectors.toList()));
+            hBox.getChildren().addAll(sounds.get(i).stream().map(SoundOnNeck::getButton).collect(Collectors.toList()));
             vBox.getChildren().add(hBox);
         }
         neckPane.getChildren().add(vBox);
@@ -61,9 +63,17 @@ public class Controller {
         vBox.getChildren().add(button);
 
         addChordButtons(SoundsNames.A, "Mol", vBox);
-        addChordButtons(SoundsNames.G, "Dur", vBox);
+        addChordButtons(SoundsNames.G, "Mol", vBox);
         addChordButtons(SoundsNames.D, "Dur", vBox);
         addChordButtons(SoundsNames.C, "Dur", vBox);
+
+        Button melodyButton = new Button("Play melody.");
+        melodyButton.setOnMouseClicked(event -> {
+            Melody melody = new Melody(neck);
+            MelodyPlayer melodyPlayer = new MelodyPlayer(melody);
+            melodyPlayer.play();
+        });
+        vBox.getChildren().add(melodyButton);
 
         chordsButtonsPane.getChildren().add(vBox);
     }
