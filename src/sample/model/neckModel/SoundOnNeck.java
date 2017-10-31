@@ -1,4 +1,4 @@
-package sample.model;
+package sample.model.neckModel;
 
 import javafx.scene.control.Button;
 

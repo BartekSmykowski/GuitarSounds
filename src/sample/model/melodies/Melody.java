@@ -1,39 +1,18 @@
 package sample.model.melodies;
 
-import sample.model.Neck;
+import sample.model.neckModel.Neck;
 
 import java.util.ArrayList;
+import java.util.List;
 
-/**
- * Created by Bartek on 30.10.2017.
- */
 public class Melody {
 
     private Neck neck;
     private ArrayList<MultiSound> multiSounds;
+    private double frequency = 20;
 
     public Melody(Neck neck){
         this(neck, new ArrayList<>());
-
-
-        addSound(new NeckCoords(5, 0));
-        addSound(new NeckCoords(2, 0));
-        addSound(new NeckCoords(1, 0));
-        addSound(new NeckCoords(0, 0));
-        addSound(new NeckCoords(1, 0));
-        addSound(new NeckCoords(2, 0));
-        addSound(new NeckCoords(5, 0));
-        addSound(new NeckCoords(2, 0));
-        addSound(new NeckCoords(1, 0));
-        addSound(new NeckCoords(0, 0));
-        addSound(new NeckCoords(1, 0));
-        addSound(new NeckCoords(2, 0));
-        addSound(new NeckCoords(5, 0));
-        addSound(new NeckCoords(2, 0));
-        addSound(new NeckCoords(1, 0));
-        addSound(new NeckCoords(0, 0));
-        addSound(new NeckCoords(1, 0));
-        addSound(new NeckCoords(2, 0));
     }
 
     public Melody(Neck neck, ArrayList<MultiSound> multiSounds){
@@ -44,7 +23,7 @@ public class Melody {
     public void play(){
         for(MultiSound sound : multiSounds){
             sound.play();
-            trySleep(500);
+            trySleep((int) (1000/frequency));
         }
     }
 
@@ -54,6 +33,11 @@ public class Melody {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void addParallelSounds(List<NeckCoords> coords){
+        MultiSound sound = new MultiSound(coords, neck);
+        multiSounds.add(sound);
     }
 
     public void addSound(NeckCoords coord){
@@ -67,6 +51,10 @@ public class Melody {
         ArrayList<NeckCoords> coords = new ArrayList<>();
         MultiSound sound = new MultiSound(coords, neck);
         multiSounds.add(sound);
+    }
+
+    public void setFrequency(double frequency){
+        this.frequency = frequency;
     }
 
 }

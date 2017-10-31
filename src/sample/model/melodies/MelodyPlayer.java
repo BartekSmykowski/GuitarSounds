@@ -19,6 +19,7 @@ public class MelodyPlayer extends Timer {
             @Override
             public void run() {
                 melody.play();
+                cancel();
             }
         }, 0);
     }

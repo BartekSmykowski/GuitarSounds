@@ -4,10 +4,10 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
-import sample.model.Neck;
-import sample.model.Sound;
-import sample.model.SoundOnNeck;
-import sample.model.SoundsNames;
+import sample.model.neckModel.Neck;
+import sample.model.neckModel.Sound;
+import sample.model.neckModel.SoundOnNeck;
+import sample.model.neckModel.SoundsNames;
 
 import java.util.ArrayList;
 

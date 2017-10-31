@@ -1,7 +1,7 @@
 package sample.model.chords;
 
-import sample.model.Neck;
-import sample.model.SoundsNames;
+import sample.model.neckModel.Neck;
+import sample.model.neckModel.SoundsNames;
 
 /**
  * Created by Bartek on 23.10.2017.

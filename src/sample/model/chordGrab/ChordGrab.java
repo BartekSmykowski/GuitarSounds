@@ -1,7 +1,7 @@
 package sample.model.chordGrab;
 
 import javafx.scene.control.Button;
-import sample.model.Neck;
+import sample.model.neckModel.Neck;
 import sample.model.chords.Chord;
 
 import java.util.ArrayList;

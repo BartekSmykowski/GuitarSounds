@@ -5,14 +5,15 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import sample.model.Neck;
-import sample.model.SoundOnNeck;
-import sample.model.SoundsNames;
+import sample.model.neckModel.Neck;
+import sample.model.neckModel.SoundOnNeck;
+import sample.model.neckModel.SoundsNames;
 import sample.model.chordGrab.ChordGrab;
 import sample.model.chords.Chord;
 import sample.model.chords.ChordsFactory;
 import sample.model.melodies.Melody;
 import sample.model.melodies.MelodyPlayer;
+import sample.model.tabulature.TabLoader;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,7 +70,8 @@ public class Controller {
 
         Button melodyButton = new Button("Play melody.");
         melodyButton.setOnMouseClicked(event -> {
-            Melody melody = new Melody(neck);
+            TabLoader tabLoader = new TabLoader("src/resources/tabulatury/gnrCivilWar.txt", neck);
+            Melody melody = tabLoader.getMelody();
             MelodyPlayer melodyPlayer = new MelodyPlayer(melody);
             melodyPlayer.play();
         });

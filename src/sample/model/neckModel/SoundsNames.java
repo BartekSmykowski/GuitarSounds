@@ -1,4 +1,4 @@
-package sample.model;
+package sample.model.neckModel;
 
 import java.util.ArrayList;
 
@@ -20,11 +20,11 @@ public enum SoundsNames {
     }
 
     public static ArrayList<Sound> getStandardUculeleSounds(){
-        ArrayList<Sound> sounds = new ArrayList<>(6);
-        sounds.add(new Sound(G, 0));
-        sounds.add(new Sound(C, 0));
-        sounds.add(new Sound(E, 1));
+        ArrayList<Sound> sounds = new ArrayList<>(4);
         sounds.add(new Sound(A, 1));
+        sounds.add(new Sound(E, 1));
+        sounds.add(new Sound(C, 0));
+        sounds.add(new Sound(G, 0));
         return sounds;
     }
 }
