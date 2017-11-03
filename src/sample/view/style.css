@@ -36,9 +36,10 @@
 .PlayerButton {
     -fx-background-color: #AAAACC;
     -fx-border-color: #444455;
-    -fx-border-radius: 5;
+    -fx-border-radius: 9;
     -fx-pref-height: 30px;
     -fx-min-width: 55px;
+    -fx-fill-color: #000000;
 }
 
 .CButton {

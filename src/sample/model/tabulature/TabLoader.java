@@ -42,8 +42,9 @@ public class TabLoader {
         List<String> stringsLines = new ArrayList<>(neck.getNumberOfStrings());
         int counter = 0;
         for(String line: lines){
-            if(!line.equals("")){
+            if(isValidLine(line)){
                 counter++;
+                line = prepareLine(line);
                 stringsLines.add(line);
             }
             if(counter == neck.getNumberOfStrings()){
@@ -51,9 +52,20 @@ public class TabLoader {
                 processStringLines(stringsLines);
                 stringsLines.clear();
             }
-
         }
+    }
 
+    private boolean isValidLine(String line) {
+        boolean isValiLine = false;
+        if(line.contains("-"))
+            isValiLine = true;
+        return isValiLine;
+    }
+
+    private String prepareLine(String line) {
+        String preparedLine = line.replaceAll("[pbhs/()x]", "-");
+        preparedLine = preparedLine.replaceAll("[^\\d-]", "");
+        return preparedLine;
     }
 
     private void processStringLines(List<String> stringsLines) {
