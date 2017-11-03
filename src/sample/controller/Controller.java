@@ -131,13 +131,13 @@ public class Controller {
             tabNameLabel.setText(selectedFile.getName());
             TabLoader tabLoader = new TabLoader(selectedFile.getPath(), neck);
             Melody melody = tabLoader.getMelody();
-            melodyProgressBar.progressProperty().bind(melody.percentageProgressProperty());
+            melodyProgressBar.progressProperty().bind(melodyPlayer.percentageProgressProperty());
             melodyPlayer = new MelodyPlayer(melody);
         }
     }
 
     public void playLoadedTabulature(MouseEvent mouseEvent) {
-        melodyPlayer.getMelody().setFrequency(Double.parseDouble(frequencyTextField.getText()));
+        melodyPlayer.setFrequency(Double.parseDouble(frequencyTextField.getText()));
         melodyPlayer.play();
     }
 
