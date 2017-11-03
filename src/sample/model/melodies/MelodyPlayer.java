@@ -27,7 +27,7 @@ public class MelodyPlayer {
     private boolean isPaused;
     private double frequency;
 
-    public MelodyPlayer(Melody melody){
+    public MelodyPlayer(Melody melody) {
         this.melody = melody;
         pauseLock = new ReentrantLock();
         frequency = 5;
@@ -51,6 +51,7 @@ public class MelodyPlayer {
     }
 
     private void playMelody() throws InterruptedException {
+        isPaused = false;
         int i = 0;
         for(MultiSound sound : melody.getMultiSounds()){
             while(isPaused){
@@ -59,8 +60,7 @@ public class MelodyPlayer {
             sound.play();
             Thread.sleep((int) (1000/frequency));
             i++;
-            progress.setValue(i);
-            percentageProgress.setValue(progress.doubleValue()/melody.getLenght());
+            percentageProgress.setValue((double)i/melody.getLenght());
         }
     }
 

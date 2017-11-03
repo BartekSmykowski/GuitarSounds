@@ -131,8 +131,8 @@ public class Controller {
             tabNameLabel.setText(selectedFile.getName());
             TabLoader tabLoader = new TabLoader(selectedFile.getPath(), neck);
             Melody melody = tabLoader.getMelody();
-            melodyProgressBar.progressProperty().bind(melodyPlayer.percentageProgressProperty());
             melodyPlayer = new MelodyPlayer(melody);
+            melodyProgressBar.progressProperty().bind(melodyPlayer.percentageProgressProperty());
         }
     }
 
