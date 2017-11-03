@@ -14,8 +14,8 @@ public class SoundOnNeck extends Sound {
         super(name, octave);
         button = new Button(name.toString() + octave);
         button.setOnMouseClicked(event -> playSound());
-        isHighlighted = false;
-        changeHighlight();
+        button.getStyleClass().add("neck-button");
+        highlight();
     }
 
     public void changeHighlight(){
@@ -27,13 +27,17 @@ public class SoundOnNeck extends Sound {
     }
 
     public void highlight(){
-        isHighlighted = true;
-        button.setId(getName().toString() + "Button");
+        if(!isHighlighted) {
+            isHighlighted = true;
+            button.getStyleClass().add(getName().toString() + "Button");
+        }
     }
 
     public void unhighlight(){
-        isHighlighted = false;
-        button.setId("DefaultButton");
+        if(isHighlighted) {
+            isHighlighted = false;
+            button.getStyleClass().remove(getName().toString() + "Button");
+        }
     }
 
     public Button getButton(){

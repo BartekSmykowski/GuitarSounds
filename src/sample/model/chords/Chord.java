@@ -38,7 +38,7 @@ public class Chord {
     private void initButton() {
         button = new Button("Akord: " + firsSound.toString() + " " + type);
         button.textProperty().bind(Bindings.concat("Chord: ", firsSound, " ", type));
-        button.setId("Chord");
+        button.getStyleClass().add("Chord");
         button.setOnMouseClicked(event ->{
             neck.getSounds().forEach(stringSounds -> stringSounds.forEach(this::highlightIfIncluded));
             play();

@@ -2,31 +2,52 @@ package sample.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import sample.model.neckModel.Neck;
-import sample.model.neckModel.SoundOnNeck;
-import sample.model.neckModel.SoundsNames;
+import javafx.stage.FileChooser;
 import sample.model.chordGrab.ChordGrab;
 import sample.model.chords.Chord;
 import sample.model.chords.ChordsFactory;
 import sample.model.melodies.Melody;
 import sample.model.melodies.MelodyPlayer;
+import sample.model.neckModel.Neck;
+import sample.model.neckModel.SoundOnNeck;
+import sample.model.neckModel.SoundsNames;
 import sample.model.tabulature.TabLoader;
 
-import java.util.*;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Controller {
     public Pane menuButtonsPane;
     public Pane neckPane;
     public Pane chordsButtonsPane;
+    public Pane tabChoosePane;
+    public Label tabNameLabel;
+    public Button tabChooseButton;
+    public Button playTabButton;
+    public TextField frequencyTextField;
+    public ProgressBar melodyProgressBar;
+    public Button stopButton;
+    public Button pauseButton;
+    public Button resumeButton;
     private Neck neck;
+    private MelodyPlayer melodyPlayer;
 
     @FXML
     public void initialize(){
         neck = new Neck();
+        melodyPlayer = new MelodyPlayer(new Melody(neck));
         addNeckButtons();
         addMenuButtons();
         addChords();
@@ -35,7 +56,18 @@ public class Controller {
     private void addNeckButtons() {
         List<List<SoundOnNeck>> sounds = neck.getSounds();
         VBox vBox = new VBox();
-        for(int i = sounds.size() - 1; i >= 0; i--){
+
+        HBox fretNumbers = new HBox();
+        Stream<Integer> intStream = IntStream.range(0, neck.getStringsLength()).boxed();
+        List<Label> labels = intStream.map(n -> {
+            Label label = new Label(n + "");
+            label.getStyleClass().add("neck-label");
+            return label;
+        }).collect(Collectors.toList());
+        fretNumbers.getChildren().addAll(labels);
+        vBox.getChildren().add(fretNumbers);
+
+        for(int i = neck.getNumberOfStrings() - 1; i >= 0; i--){
             HBox hBox = new HBox();
             hBox.getChildren().addAll(sounds.get(i).stream().map(SoundOnNeck::getButton).collect(Collectors.toList()));
             vBox.getChildren().add(hBox);
@@ -47,7 +79,8 @@ public class Controller {
         VBox vBox = new VBox();
         for(SoundsNames sound : SoundsNames.values()){
             Button button = new Button(sound.toString());
-            button.setId(sound.toString() + "Button");
+            button.getStyleClass().add("menu-button");
+            button.getStyleClass().add(sound.toString() + "Button");
             button.setOnMouseClicked(event -> neck.getSounds().forEach(stringSounds -> stringSounds.forEach(stringSound -> {
                 if(stringSound.getName().equals(sound)){
                     stringSound.changeHighlight();
@@ -67,15 +100,6 @@ public class Controller {
         addChordButtons(SoundsNames.G, "Mol", vBox);
         addChordButtons(SoundsNames.D, "Dur", vBox);
         addChordButtons(SoundsNames.C, "Dur", vBox);
-
-        Button melodyButton = new Button("Play melody.");
-        melodyButton.setOnMouseClicked(event -> {
-            TabLoader tabLoader = new TabLoader("src/resources/tabulatury/gnrCivilWar.txt", neck);
-            Melody melody = tabLoader.getMelody();
-            MelodyPlayer melodyPlayer = new MelodyPlayer(melody);
-            melodyPlayer.play();
-        });
-        vBox.getChildren().add(melodyButton);
 
         chordsButtonsPane.getChildren().add(vBox);
     }
@@ -98,4 +122,34 @@ public class Controller {
         return button;
     }
 
+    public void openTabChooser(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        File selectedFile = fileChooser.showOpenDialog(tabChoosePane.getScene().getWindow());
+        if (selectedFile != null) {
+            tabNameLabel.setText(selectedFile.getName());
+            TabLoader tabLoader = new TabLoader(selectedFile.getPath(), neck);
+            Melody melody = tabLoader.getMelody();
+            melodyProgressBar.progressProperty().bind(melody.percentageProgressProperty());
+            melodyPlayer = new MelodyPlayer(melody);
+        }
+    }
+
+    public void playLoadedTabulature(MouseEvent mouseEvent) {
+        melodyPlayer.getMelody().setFrequency(Double.parseDouble(frequencyTextField.getText()));
+        melodyPlayer.play();
+    }
+
+    public void stopPlaying(MouseEvent mouseEvent) {
+        melodyPlayer.stop();
+    }
+
+    public void resumeClicked(MouseEvent mouseEvent) {
+        melodyPlayer.resume();
+    }
+
+    public void pauseClicked(MouseEvent mouseEvent) {
+        melodyPlayer.pause();
+    }
 }

@@ -4,63 +4,78 @@
     -fx-background-color: #FFFF55;
     -fx-border-color: #000000;
     -fx-border-radius: 0;
+}
+
+.neck-label{
+    -fx-pref-width: 35px;
+    -fx-font: 14px "Serif";
+    -fx-background-color: #FFFFCC;
+    -fx-border-color: #000000;
+    -fx-alignment: center;
+}
+
+.neck-button {
     -fx-pref-width: 35px;
 }
 
-#Chord {
+.menu-button {
+    -fx-pref-width: 35px;
+}
+
+.Chord {
     -fx-font: 14px "Serif";
     -fx-pref-width: 100px;
 }
 
-#ChordGrab {
+.ChordGrab {
     -fx-font: 14px "Serif";
     -fx-pref-width: 120px;
 }
 
-#CButton {
+.CButton {
     -fx-background-color: #444477
 }
 
-#CisButton {
+.CisButton {
     -fx-background-color: #447744
 }
 
-#DButton {
+.DButton {
     -fx-background-color: #774444
 }
 
-#DisButton {
+.DisButton {
     -fx-background-color: #447777
 }
 
-#EButton {
+.EButton {
     -fx-background-color: #774477
 }
 
-#FButton {
+.FButton {
     -fx-background-color: #774400
 }
 
-#FisButton {
+.FisButton {
     -fx-background-color: #770077
 }
 
-#GButton {
+.GButton {
     -fx-background-color: #004477
 }
 
-#GisButton {
+.GisButton {
     -fx-background-color: #7744FF
 }
 
-#AButton {
+.AButton {
     -fx-background-color: #77FF77
 }
 
-#BButton {
+.BButton {
     -fx-background-color: #FF4477
 }
 
-#HButton {
+.HButton {
     -fx-background-color: #CCCCCC
 }

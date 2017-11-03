@@ -12,7 +12,7 @@ public class ChordsFactory {
             return new MolChord(soundName, neck);
         else if(type.equalsIgnoreCase("dur"))
             return new DurChord(soundName, neck);
-        else if(type.equalsIgnoreCase("7dur"))
+        else if(type.equalsIgnoreCase("7dur") || type.equalsIgnoreCase("dur7"))
             return new Dur7Chord(soundName, neck);
 
         throw new NoSuchChordTypeException(type);

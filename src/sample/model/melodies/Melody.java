@@ -1,5 +1,9 @@
 package sample.model.melodies;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import sample.model.neckModel.Neck;
 
 import java.util.ArrayList;
@@ -9,7 +13,11 @@ public class Melody {
 
     private Neck neck;
     private ArrayList<MultiSound> multiSounds;
-    private double frequency = 20;
+    private boolean isPaused;
+    private double frequency;
+    private IntegerProperty length;
+    private IntegerProperty progress;
+    private DoubleProperty percentageProgress;
 
     public Melody(Neck neck){
         this(neck, new ArrayList<>());
@@ -18,43 +26,54 @@ public class Melody {
     public Melody(Neck neck, ArrayList<MultiSound> multiSounds){
         this.neck = neck;
         this.multiSounds = multiSounds;
+        isPaused = false;
+        frequency = 5;
+        length = new SimpleIntegerProperty(multiSounds.size());
+        progress = new SimpleIntegerProperty(0);
+        percentageProgress = new SimpleDoubleProperty(0);
     }
 
-    public void play(){
+    public void play() throws InterruptedException {
+        int i = 0;
         for(MultiSound sound : multiSounds){
+            while(isPaused){
+                Thread.sleep(50);
+            }
             sound.play();
-            trySleep((int) (1000/frequency));
+            Thread.sleep((int) (1000/frequency));
+            i++;
+            progress.setValue(i);
+            percentageProgress.setValue(progress.doubleValue()/length.doubleValue());
         }
     }
 
-    private void trySleep(int time) {
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void pause(){
+        isPaused = true;
+    }
+
+    public void resume(){
+        isPaused = false;
+    }
+
+    private void trySleep(int time) throws InterruptedException {
     }
 
     public void addParallelSounds(List<NeckCoords> coords){
         MultiSound sound = new MultiSound(coords, neck);
         multiSounds.add(sound);
-    }
-
-    public void addSound(NeckCoords coord){
-        ArrayList<NeckCoords> coords = new ArrayList<>();
-        coords.add(coord);
-        MultiSound sound = new MultiSound(coords, neck);
-        multiSounds.add(sound);
-    }
-
-    public void addBreak(){
-        ArrayList<NeckCoords> coords = new ArrayList<>();
-        MultiSound sound = new MultiSound(coords, neck);
-        multiSounds.add(sound);
+        length.set(length.getValue() + 1);
     }
 
     public void setFrequency(double frequency){
         this.frequency = frequency;
     }
 
+    public DoubleProperty percentageProgressProperty(){
+        return percentageProgress;
+    }
+
+    public void stop() {
+        progress.set(0);
+        percentageProgress.set(0);
+    }
 }

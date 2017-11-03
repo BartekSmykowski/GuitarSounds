@@ -28,7 +28,7 @@ public class ChordGrab {
 
     private void initButton() {
         button = new Button("Find best: " + chord.getFirstSound() + " " + chord.getType());
-        button.setId("ChordGrab");
+        button.getStyleClass().add("ChordGrab");
         button.setOnMouseClicked(event -> highlightGrab());
     }
 

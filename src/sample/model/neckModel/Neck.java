@@ -14,11 +14,13 @@ import java.util.List;
 public class Neck {
     private ObservableMap<Integer, MusicString> guitarStrings = FXCollections.observableHashMap();
     private int numberOfStrings;
+    private int stringsLength;
 
-    public Neck(ArrayList<Sound> firstSounds, int dlugoscStrun){
+    public Neck(ArrayList<Sound> firstSounds, int stringsLength){
+        this.stringsLength = stringsLength;
         int i = 0;
         for(Sound sound : firstSounds){
-            guitarStrings.put(i, new MusicString(dlugoscStrun, sound));
+            guitarStrings.put(i, new MusicString(stringsLength, sound));
             i++;
         }
         numberOfStrings = guitarStrings.size();
@@ -58,5 +60,9 @@ public class Neck {
 
     public int getNumberOfStrings() {
         return numberOfStrings;
+    }
+
+    public int getStringsLength() {
+        return stringsLength;
     }
 }
