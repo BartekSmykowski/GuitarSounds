@@ -29,7 +29,7 @@ public class Controller {
     public Pane menuButtonsPane;
     public Pane neckPane;
     public Pane chordsButtonsPane;
-    public Pane tabChoosePane;
+    public Pane tabPlayerPane;
     public Label tabNameLabel;
     public Button tabChooseButton;
     public Button playTabButton;
@@ -123,7 +123,7 @@ public class Controller {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
-        File selectedFile = fileChooser.showOpenDialog(tabChoosePane.getScene().getWindow());
+        File selectedFile = fileChooser.showOpenDialog(tabPlayerPane.getScene().getWindow());
         if (selectedFile != null) {
             tabNameLabel.setText(selectedFile.getName());
             TabLoader tabLoader = new TabLoader(selectedFile.getPath(), neck);

@@ -19,7 +19,7 @@
       <RowConstraints />
    </rowConstraints>
    <children>
-      <HBox prefHeight="350.0" prefWidth="800.0">
+      <HBox fx:id="mainHBox" prefHeight="350.0" prefWidth="800.0">
          <children>
             <Pane fx:id="menuButtonsPane" prefHeight="350.0" prefWidth="61.0" />
             <VBox prefHeight="350.0" prefWidth="739.0">
@@ -28,7 +28,7 @@
                   <HBox prefHeight="173.0" prefWidth="739.0" spacing="20.0">
                      <children>
                         <Pane fx:id="chordsButtonsPane" prefHeight="173.0" prefWidth="211.0" />
-                        <Pane fx:id="tabChoosePane" prefHeight="173.0" prefWidth="284.0">
+                        <Pane fx:id="tabPlayerPane" prefHeight="173.0" prefWidth="284.0">
                            <children>
                               <Label fx:id="tabNameLabel" layoutX="90.0" layoutY="14.0" text="Choose tabulature" />
                               <Button fx:id="tabChooseButton" layoutX="88.0" layoutY="37.0" mnemonicParsing="false" onMouseClicked="#openTabChooser" styleClass="PlayerButton" text="Choose tabulature" />

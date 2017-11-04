@@ -6,6 +6,5 @@ package sample.model.tabulature;
 public class StringslinesHaveNotSameLengthException extends RuntimeException{
     public StringslinesHaveNotSameLengthException(String difference){
         super(difference);
-        printStackTrace();
     }
 }

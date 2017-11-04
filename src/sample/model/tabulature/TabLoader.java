@@ -64,7 +64,7 @@ public class TabLoader {
     }
 
     private String prepareLine(String line) {
-        String preparedLine = line.replaceAll("[pbhs/()x^ ]", "-");
+        String preparedLine = line.replaceAll("[pbrhs/()x^ ~\\\\]", "-");
         preparedLine = preparedLine.replaceAll("[^\\d-]", "");
         return preparedLine;
     }
@@ -96,7 +96,7 @@ public class TabLoader {
         for(int i = 1; i < neck.getNumberOfStrings(); i++){
             int tmpLength = stringsLines.get(i).length();
             if(tmpLength != lineLength){
-                throw new StringslinesHaveNotSameLengthException(tmpLength - lineLength + "");
+                throw new StringslinesHaveNotSameLengthException(stringsLines.get(i));
             }
         }
     }

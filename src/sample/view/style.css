@@ -1,10 +1,18 @@
 .button {
     -fx-font: 14px "Serif";
     -fx-padding: 2;
-    -fx-background-color: #FFFF55;
+    -fx-background-color: #CCCCCC;
     -fx-border-color: #000000;
     -fx-border-radius: 0;
     -fx-alignment: center;
+}
+
+#mainHBox{
+    -fx-background-image: url("../../resources/images/background_image.jpg");
+}
+
+#tabPlayerPane{
+    -fx-background-image: url("../../resources/images/player_background.jpg");
 }
 
 .neck-label{
@@ -16,7 +24,10 @@
 }
 
 .neck-button {
+    -fx-background-color: #120901;
+    -fx-text-fill: #F3AF51;
     -fx-pref-width: 35px;
+    -fx-border-color: #B38506;
 }
 
 .menu-button {
