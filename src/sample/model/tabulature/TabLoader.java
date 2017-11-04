@@ -49,6 +49,7 @@ public class TabLoader {
             }
             if(counter == neck.getNumberOfStrings()){
                 counter = 0;
+                validLinesLength(stringsLines);
                 processStringLines(stringsLines);
                 stringsLines.clear();
             }
@@ -63,7 +64,7 @@ public class TabLoader {
     }
 
     private String prepareLine(String line) {
-        String preparedLine = line.replaceAll("[pbhs/()x]", "-");
+        String preparedLine = line.replaceAll("[pbhs/()x^ ]", "-");
         preparedLine = preparedLine.replaceAll("[^\\d-]", "");
         return preparedLine;
     }
@@ -71,13 +72,32 @@ public class TabLoader {
     private void processStringLines(List<String> stringsLines) {
         for(int i = 0; i < stringsLines.get(0).length(); i++){
             List<NeckCoords> coords = new ArrayList<>();
-            for(int string = 0; string < 6; string++){
+            for(int string = 0; string < neck.getNumberOfStrings(); string++){
                 char sign = stringsLines.get(string).charAt(i);
+                char nextSign = '-';
+                char prevSign = '-';
+                if(stringsLines.get(string).length() > i + 1)
+                    nextSign = stringsLines.get(string).charAt(i+1);
+                if(i > 0)
+                    prevSign = stringsLines.get(string).charAt(i-1);
                 if(sign != '-'){
-                    coords.add(new NeckCoords(string, Integer.parseInt(sign + "")));
+                    if(nextSign !=  '-')
+                        coords.add(new NeckCoords(string, Integer.parseInt("" + sign + nextSign)));
+                    else if(prevSign == '-')
+                        coords.add(new NeckCoords(string, Integer.parseInt(sign + "")));
                 }
             }
             melody.addParallelSounds(coords);
+        }
+    }
+
+    private void validLinesLength(List<String> stringsLines) {
+        int lineLength = stringsLines.get(0).length();
+        for(int i = 1; i < neck.getNumberOfStrings(); i++){
+            int tmpLength = stringsLines.get(i).length();
+            if(tmpLength != lineLength){
+                throw new StringslinesHaveNotSameLengthException(tmpLength - lineLength + "");
+            }
         }
     }
 

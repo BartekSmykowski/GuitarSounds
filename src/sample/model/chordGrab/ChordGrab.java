@@ -123,6 +123,7 @@ public class ChordGrab {
                 }
             }
         }
+
         grade -= maxDist;
         return grade;
     }

@@ -1,10 +1,7 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -36,17 +33,17 @@ public class Controller {
     public Label tabNameLabel;
     public Button tabChooseButton;
     public Button playTabButton;
-    public TextField frequencyTextField;
     public ProgressBar melodyProgressBar;
     public Button stopButton;
     public Button pauseButton;
     public Button resumeButton;
+    public Slider speedSlider;
     private Neck neck;
     private MelodyPlayer melodyPlayer;
 
     @FXML
     public void initialize(){
-        neck = new Neck();
+        neck = new Neck(21);
         melodyPlayer = new MelodyPlayer(new Melody(neck));
         addNeckButtons();
         addMenuButtons();
@@ -97,7 +94,7 @@ public class Controller {
         vBox.getChildren().add(button);
 
         addChordButtons(SoundsNames.A, "Mol", vBox);
-        addChordButtons(SoundsNames.G, "Mol", vBox);
+        addChordButtons(SoundsNames.G, "Dur", vBox);
         addChordButtons(SoundsNames.D, "Dur", vBox);
         addChordButtons(SoundsNames.C, "Dur", vBox);
 
@@ -137,7 +134,7 @@ public class Controller {
     }
 
     public void playLoadedTabulature(MouseEvent mouseEvent) {
-        melodyPlayer.setFrequency(Double.parseDouble(frequencyTextField.getText()));
+        melodyPlayer.setSpeed((speedSlider.getValue()));
         melodyPlayer.play();
     }
 
@@ -151,5 +148,9 @@ public class Controller {
 
     public void pauseClicked(MouseEvent mouseEvent) {
         melodyPlayer.pause();
+    }
+
+    public void changeFrequency(MouseEvent mouseEvent) {
+        melodyPlayer.setSpeed((speedSlider.getValue()));
     }
 }

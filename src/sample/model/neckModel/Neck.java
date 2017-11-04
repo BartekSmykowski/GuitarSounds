@@ -27,11 +27,15 @@ public class Neck {
     }
 
     public Neck(ArrayList<Sound> firstSounds){
-        this(firstSounds, 19);
+        this(firstSounds, 20);
     }
 
     public Neck(){
-        this(SoundsNames.getStandardGuitarSounds(), 19);
+        this(SoundsNames.getStandardGuitarSounds(), 20);
+    }
+
+    public Neck(int stringsLength){
+        this(SoundsNames.getStandardGuitarSounds(), stringsLength);
     }
 
     public void playSound(NeckCoords coords){

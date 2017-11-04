@@ -25,12 +25,12 @@ public class MelodyPlayer {
     private ReentrantLock pauseLock;
     private Condition unPaused;
     private boolean isPaused;
-    private double frequency;
+    private double speed;
 
     public MelodyPlayer(Melody melody) {
         this.melody = melody;
         pauseLock = new ReentrantLock();
-        frequency = 5;
+        speed = 5;
         isPaused = false;
         progress = new SimpleIntegerProperty(0);
         percentageProgress = new SimpleDoubleProperty(0);
@@ -58,7 +58,7 @@ public class MelodyPlayer {
                 Thread.sleep(50);
             }
             sound.play();
-            Thread.sleep((int) (1000/frequency));
+            Thread.sleep((int) (1000/speed));
             i++;
             percentageProgress.setValue((double)i/melody.getLenght());
         }
@@ -95,8 +95,8 @@ public class MelodyPlayer {
         return melody;
     }
 
-    public void setFrequency(double frequency){
-        this.frequency = frequency;
+    public void setSpeed(double speed){
+        this.speed = speed;
     }
 
     public DoubleProperty percentageProgressProperty(){
