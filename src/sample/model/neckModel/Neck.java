@@ -39,17 +39,17 @@ public class Neck {
     }
 
     public void playSound(NeckCoords coords){
-        Sound playSound = getStringSounds(coords.getString()).get(coords.getFret());
+        SoundOnNeck playSound = getStringSounds(coords.getString()).get(coords.getFret());
+        playSound.highlight();
+        playSound.playSound();
+    }
+
+    public void unhightlightAll(){
         for(MusicString string : guitarStrings.values()){
             for(SoundOnNeck sound : string.getSounds()){
-                if(sound.equals(playSound)){
-                    sound.highlight();
-                } else{
-                    sound.unhighlight();
-                }
+                sound.unhighlight();
             }
         }
-        playSound.playSound();
     }
 
     public List<List<SoundOnNeck>> getSounds(){

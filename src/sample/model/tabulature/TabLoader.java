@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Bartek on 31.10.2017.
@@ -44,11 +45,11 @@ public class TabLoader {
         for(String line: lines){
             if(isValidLine(line)){
                 counter++;
-                line = prepareLine(line);
                 stringsLines.add(line);
             }
             if(counter == neck.getNumberOfStrings()){
                 counter = 0;
+                stringsLines = stringsLines.stream().map(l-> l = prepareLine(l)).collect(Collectors.toList());
                 validLinesLength(stringsLines);
                 processStringLines(stringsLines);
                 stringsLines.clear();
@@ -58,7 +59,7 @@ public class TabLoader {
 
     private boolean isValidLine(String line) {
         boolean isValiLine = false;
-        if(line.contains("-"))
+        if(line.contains("--"))
             isValiLine = true;
         return isValiLine;
     }
@@ -96,7 +97,7 @@ public class TabLoader {
         for(int i = 1; i < neck.getNumberOfStrings(); i++){
             int tmpLength = stringsLines.get(i).length();
             if(tmpLength != lineLength){
-                throw new StringslinesHaveNotSameLengthException(stringsLines.get(i));
+                throw new StringslinesHaveNotSameLengthException(stringsLines);
             }
         }
     }

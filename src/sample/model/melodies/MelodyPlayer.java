@@ -1,5 +1,6 @@
 package sample.model.melodies;
 
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -25,12 +26,14 @@ public class MelodyPlayer {
     private ReentrantLock pauseLock;
     private Condition unPaused;
     private boolean isPaused;
-    private double speed;
+    private ReentrantLock speedLock;
+    private DoubleProperty speed;
 
     public MelodyPlayer(Melody melody) {
         this.melody = melody;
         pauseLock = new ReentrantLock();
-        speed = 5;
+        speedLock = new ReentrantLock();
+        speed = new SimpleDoubleProperty(5);
         isPaused = false;
         progress = new SimpleIntegerProperty(0);
         percentageProgress = new SimpleDoubleProperty(0);
@@ -54,11 +57,22 @@ public class MelodyPlayer {
         isPaused = false;
         int i = 0;
         for(MultiSound sound : melody.getMultiSounds()){
-            while(isPaused){
-                Thread.sleep(50);
+            pauseLock.lock();
+            try {
+                while (isPaused) {
+                    unPaused.await();
+                }
+            } finally {
+                pauseLock.unlock();
             }
-            sound.play();
-            Thread.sleep((int) (1000/speed));
+            Platform.runLater(sound::play);
+            speedLock.lock();
+            try {
+                int sleepTime = (int) (1000 / speed.getValue());
+                Thread.sleep(sleepTime);
+            } finally {
+                speedLock.unlock();
+            }
             i++;
             percentageProgress.setValue((double)i/melody.getLenght());
         }
@@ -96,10 +110,16 @@ public class MelodyPlayer {
     }
 
     public void setSpeed(double speed){
-        this.speed = speed;
+        speedLock.lock();
+        this.speed.setValue(speed);
+        speedLock.unlock();
     }
 
     public DoubleProperty percentageProgressProperty(){
         return percentageProgress;
+    }
+
+    public DoubleProperty speedProperty() {
+        return speed;
     }
 }

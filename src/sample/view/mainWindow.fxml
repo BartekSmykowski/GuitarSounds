@@ -32,7 +32,7 @@
                            <children>
                               <Label fx:id="tabNameLabel" layoutX="90.0" layoutY="14.0" text="Choose tabulature" />
                               <Button fx:id="tabChooseButton" layoutX="88.0" layoutY="37.0" mnemonicParsing="false" onMouseClicked="#openTabChooser" styleClass="PlayerButton" text="Choose tabulature" />
-                              <Label layoutX="63.0" layoutY="78.0" text="Set speed:" />
+                              <Label layoutX="42.0" layoutY="78.0" text="Set speed:" />
                               <ProgressBar fx:id="melodyProgressBar" layoutX="42.0" layoutY="150.0" prefWidth="200.0" progress="0.0" />
                               <HBox alignment="CENTER" layoutX="10.0" layoutY="106.0" prefHeight="30.0" prefWidth="244.0" spacing="15.0">
                                  <children>
@@ -42,7 +42,8 @@
                                     <Button fx:id="resumeButton" mnemonicParsing="false" onMouseClicked="#resumeClicked" styleClass="PlayerButton" text="Resume" />
                                  </children>
                               </HBox>
-                              <Slider fx:id="speedSlider" layoutX="150.0" layoutY="80.0" min="1.0" onDragDetected="#changeFrequency" prefHeight="14.0" prefWidth="107.0" value="5.0" />
+                              <Slider fx:id="speedSlider" layoutX="150.0" layoutY="80.0" min="1.0" onDragOver="#changeFrequency" prefHeight="14.0" prefWidth="107.0" value="5.0" />
+                              <Label fx:id="speedLabel" layoutX="111.0" layoutY="78.0" text="0" />
                            </children>
                         </Pane>
                      </children>

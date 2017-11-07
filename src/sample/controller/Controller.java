@@ -2,6 +2,7 @@ package sample.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -38,6 +39,7 @@ public class Controller {
     public Button pauseButton;
     public Button resumeButton;
     public Slider speedSlider;
+    public Label speedLabel;
     private Neck neck;
     private MelodyPlayer melodyPlayer;
 
@@ -45,6 +47,10 @@ public class Controller {
     public void initialize(){
         neck = new Neck(21);
         melodyPlayer = new MelodyPlayer(new Melody(neck));
+        speedSlider.valueProperty().addListener((ov, old_val, new_val) -> {
+            melodyPlayer.setSpeed(new_val.doubleValue());
+            speedLabel.setText(String.format("%.2f", new_val.doubleValue()));
+        });
         addNeckButtons();
         addMenuButtons();
         addChords();
@@ -150,7 +156,7 @@ public class Controller {
         melodyPlayer.pause();
     }
 
-    public void changeFrequency(MouseEvent mouseEvent) {
+    public void changeFrequency(DragEvent mouseEvent) {
         melodyPlayer.setSpeed((speedSlider.getValue()));
     }
 }
