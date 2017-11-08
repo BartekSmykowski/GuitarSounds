@@ -16,7 +16,7 @@ public class BestChordGrabs {
     private Neck neck;
     private Button button;
     private int highlightIndex;
-    private static final int MAX_GRABS = 5;
+    private static final int MAX_GRABS = 10;
 
     public BestChordGrabs(Chord chord, Neck neck){
         this.chord = chord;

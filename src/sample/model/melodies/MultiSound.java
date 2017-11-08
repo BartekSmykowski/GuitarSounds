@@ -19,9 +19,11 @@ public class MultiSound {
     }
 
     public void play(){
-        neck.unhightlightAll();
-        for(NeckCoords coords: coords){
-            neck.playSound(coords);
+        if(!coords.isEmpty()) {
+            neck.unhightlightAll();
+            for (NeckCoords coords : coords) {
+                neck.playSound(coords);
+            }
         }
     }
 
