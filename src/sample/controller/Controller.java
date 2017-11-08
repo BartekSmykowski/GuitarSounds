@@ -1,14 +1,17 @@
 package sample.controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import sample.model.chordGrab.ChordGrab;
+import sample.model.chordGrab.BestChordGrabs;
 import sample.model.chords.Chord;
 import sample.model.chords.ChordsFactory;
 import sample.model.melodies.Melody;
@@ -112,7 +115,7 @@ public class Controller {
         Chord chord = ChordsFactory.produce(name, type, neck);
         hBox.getChildren().add(chord.getButton());
 
-        ChordGrab grab = new ChordGrab(chord, neck);
+        BestChordGrabs grab = new BestChordGrabs(chord, neck);
         hBox.getChildren().add(grab.getButton());
         vBox.getChildren().add(hBox);
     }

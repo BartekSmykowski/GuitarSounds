@@ -1,8 +1,7 @@
 package sample.model.chordGrab;
 
-import javafx.scene.control.Button;
-import sample.model.neckModel.Neck;
 import sample.model.chords.Chord;
+import sample.model.neckModel.Neck;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,21 +14,26 @@ public class ChordGrab {
     private List<Integer> indicesOnStrings;
     private Chord chord;
     private Neck neck;
-    private Button button;
+    private double grade;
 
-    public ChordGrab(Chord chord, Neck neck){
-        this.chord = chord;
-        this.neck = neck;
-        indicesOnStrings = new ArrayList<>(Collections.nCopies(neck.getNumberOfStrings(), 0));
-        makeFirst();
-        makeBest();
-        initButton();
+    public ChordGrab(ChordGrab source){
+        this(source.chord, source.neck);
+        this.indicesOnStrings.clear();
+        this.indicesOnStrings.addAll(source.indicesOnStrings);
+        estimate();
     }
 
-    private void initButton() {
-        button = new Button("Find best: " + chord.getFirstSound() + " " + chord.getType());
-        button.getStyleClass().add("ChordGrab");
-        button.setOnMouseClicked(event -> highlightGrab());
+    public ChordGrab(List<Integer> indices, Chord chord, Neck neck){
+        this.chord = chord;
+        this.neck = neck;
+        indicesOnStrings = indices;
+        makeFirst();
+        estimate();
+        //makeBest();
+    }
+
+    public ChordGrab(Chord chord, Neck neck){
+        this(new ArrayList<>(Collections.nCopies(neck.getNumberOfStrings(), 0)), chord, neck);
     }
 
     private void makeFirst() {
@@ -81,39 +85,21 @@ public class ChordGrab {
             }
             string++;
         }
-        highlightGrab();
-        return isLast;
+        estimate();
+        return !isLast;
     }
 
     private boolean isLastTry(int string, int fret) {
         return string == neck.getNumberOfStrings() - 1 && fret == neck.getString(string).getNumberOfSounds() - 1;
     }
 
-    public void makeBest(){
-        int bestGrade;
-        List<Integer> bestIndices = new ArrayList<>(Collections.nCopies(neck.getNumberOfStrings(), 0));
-        makeFirst();
-        bestGrade = estimate();
-        bestIndices.clear();
-        bestIndices.addAll(indicesOnStrings);
-        boolean isLast = false;
-        while(!isLast){
-            isLast = makeNext();
-            int tmpGrade = estimate();
-            if(tmpGrade > bestGrade) {
-                bestGrade = tmpGrade;
-                bestIndices.clear();
-                bestIndices.addAll(indicesOnStrings);
-            }
-        }
-        indicesOnStrings = bestIndices;
-        highlightGrab();
-    }
-
-    public int estimate(){
-        int grade = 0;
+    public void estimate(){
         int maxDist = 0;
+        int lastFret = 0;
         for(int index : indicesOnStrings){
+            if(index > lastFret){
+                lastFret = index;
+            }
             for(int indexCompare: indicesOnStrings){
                 if(index != 0 && indexCompare != 0) {
                     int dist = Math.abs(index - indexCompare);
@@ -124,15 +110,16 @@ public class ChordGrab {
             }
         }
 
-        grade -= maxDist;
-        return grade;
+
+        this.grade = (100-maxDist);
+        //grade /= (double)lastFret;
     }
 
     public List getIndicesOnStrings(){
         return indicesOnStrings;
     }
 
-    public Button getButton(){
-        return button;
+    public double getGrade() {
+        return grade;
     }
 }
