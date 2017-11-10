@@ -32,6 +32,7 @@ public class BestChordGrabs {
         button.getStyleClass().add("ChordGrab");
         button.setOnMouseClicked(event -> {
             bestGrabs.get(highlightIndex).highlightGrab();
+            System.out.println(highlightIndex + " " + bestGrabs.get(highlightIndex).getGrade());
             highlightIndex++;
             highlightIndex %= MAX_GRABS;
         });

@@ -20,7 +20,7 @@ public class ChordGrab {
         this(source.chord, source.neck);
         this.indicesOnStrings.clear();
         this.indicesOnStrings.addAll(source.indicesOnStrings);
-        estimate();
+        grade = ChordGrabEstimator.estimate(this);
     }
 
     public ChordGrab(List<Integer> indices, Chord chord, Neck neck){
@@ -28,8 +28,7 @@ public class ChordGrab {
         this.neck = neck;
         indicesOnStrings = indices;
         makeFirst();
-        estimate();
-        //makeBest();
+        grade = ChordGrabEstimator.estimate(this);
     }
 
     public ChordGrab(Chord chord, Neck neck){
@@ -85,7 +84,7 @@ public class ChordGrab {
             }
             string++;
         }
-        estimate();
+        grade = ChordGrabEstimator.estimate(this);
         return !isLast;
     }
 
@@ -93,29 +92,8 @@ public class ChordGrab {
         return string == neck.getNumberOfStrings() - 1 && fret == neck.getString(string).getNumberOfSounds() - 1;
     }
 
-    public void estimate(){
-        int maxDist = 0;
-        int lastFret = 0;
-        for(int index : indicesOnStrings){
-            if(index > lastFret){
-                lastFret = index;
-            }
-            for(int indexCompare: indicesOnStrings){
-                if(index != 0 && indexCompare != 0) {
-                    int dist = Math.abs(index - indexCompare);
-                    if (dist > maxDist) {
-                        maxDist = dist;
-                    }
-                }
-            }
-        }
 
-
-        this.grade = (100-maxDist);
-        //grade /= (double)lastFret;
-    }
-
-    public List getIndicesOnStrings(){
+    public List<Integer> getIndicesOnStrings(){
         return indicesOnStrings;
     }
 

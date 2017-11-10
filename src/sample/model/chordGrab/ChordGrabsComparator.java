@@ -8,6 +8,6 @@ import java.util.Comparator;
 public class ChordGrabsComparator implements Comparator<ChordGrab> {
     @Override
     public int compare(ChordGrab o1, ChordGrab o2) {
-        return (int) (o2.getGrade() - o1.getGrade());
+        return Double.compare(o2.getGrade(), o1.getGrade());
     }
 }
