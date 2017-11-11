@@ -18,9 +18,9 @@ public class Sound {
     public Sound(SoundsNames name, int octave) {
         this.name = name;
         this.octave = new SimpleIntegerProperty(octave);
-        File soundFile = new File("src/resources/sounds/" + name.toString() + octave + ".mp3");
+        File soundFile = new File("src/main/resources/sounds/" + name.toString() + octave + ".mp3");
         if(!soundFile.exists())
-            soundFile = new File("src/resources/sounds/beep.mp3");
+            soundFile = new File("src/main/resources/sounds/beep.mp3");
         media = new Media(soundFile.toURI().toString());
     }
 

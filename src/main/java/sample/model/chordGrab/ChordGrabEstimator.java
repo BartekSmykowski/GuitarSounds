@@ -15,7 +15,7 @@ public class ChordGrabEstimator {
         double lastFret = lastFretPosition(indicesOnStrings);
         double fingers = numberOfFingers(indicesOnStrings);
 
-        grade = (100-maxDist) + 10/lastFret + 5/fingers;
+        grade = 100 - maxDist - lastFret/5 - fingers;
 
         return grade;
     }

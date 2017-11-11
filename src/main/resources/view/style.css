@@ -8,11 +8,11 @@
 }
 
 #mainHBox{
-    -fx-background-image: url("../../resources/images/background_image.jpg");
+    -fx-background-image: url("../images/background_image.jpg");
 }
 
 #tabPlayerPane{
-    -fx-background-image: url("../../resources/images/player_background.jpg");
+    -fx-background-image: url("../images/player_background.jpg");
 }
 
 .neck-label{
