@@ -13,8 +13,9 @@ public class ChordGrabEstimator {
         List<Integer> indicesOnStrings = grab.getIndicesOnStrings();
         double maxDist = maxDistBetweenIndices(indicesOnStrings);
         double lastFret = lastFretPosition(indicesOnStrings);
+        double fingers = numberOfFingers(indicesOnStrings);
 
-        grade = (100-maxDist) + 10/lastFret;
+        grade = (100-maxDist) + 10/lastFret + 5/fingers;
 
         return grade;
     }
@@ -26,6 +27,15 @@ public class ChordGrabEstimator {
                 lastFretPosition = index;
         }
         return lastFretPosition;
+    }
+
+    private static double firstFretPosition(List<Integer> indices){
+        double firstFretPosition = indices.get(0);
+        for(int index : indices){
+            if(index < firstFretPosition)
+                firstFretPosition = index;
+        }
+        return firstFretPosition;
     }
 
     private static double maxDistBetweenIndices(List<Integer> indices){
@@ -41,6 +51,23 @@ public class ChordGrabEstimator {
             }
         }
         return maxDist;
+    }
+
+    private static int numberOfFingers(List<Integer> indices){
+        int fingers = 0;
+        for(int index : indices){
+            if(index != 0)
+                fingers++;
+        }
+        if(fingers == indices.size()){
+            double firstFretPosition = firstFretPosition(indices);
+            for(int index : indices){
+                if(index == firstFretPosition)
+                    fingers--;
+            }
+            fingers++;
+        }
+        return fingers;
     }
 
 }

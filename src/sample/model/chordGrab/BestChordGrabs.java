@@ -31,8 +31,7 @@ public class BestChordGrabs {
         button = new Button("Find best: " + chord.getFirstSound() + " " + chord.getType());
         button.getStyleClass().add("ChordGrab");
         button.setOnMouseClicked(event -> {
-            bestGrabs.get(highlightIndex).highlightGrab();
-            System.out.println(highlightIndex + " " + bestGrabs.get(highlightIndex).getGrade());
+            bestGrabs.get(highlightIndex).highlight();
             highlightIndex++;
             highlightIndex %= MAX_GRABS;
         });
@@ -40,6 +39,7 @@ public class BestChordGrabs {
 
     private void findBestGrabs() {
         ChordGrab grab = new ChordGrab(chord, neck);
+        addGrab(new ChordGrab(grab));
         while(grab.makeNext()){
             addGrab(new ChordGrab(grab));
         }

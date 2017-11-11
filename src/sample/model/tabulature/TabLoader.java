@@ -65,7 +65,7 @@ public class TabLoader {
     }
 
     private String prepareLine(String line) {
-        String preparedLine = line.replaceAll("[*pgbrhs/()x^ ~\\\\]", "-");
+        String preparedLine = line.replaceAll("[*pgvbrhs/()x^ ~\\\\]", "-");
         preparedLine = preparedLine.replaceAll("[^\\d-]", "");
         return preparedLine;
     }
