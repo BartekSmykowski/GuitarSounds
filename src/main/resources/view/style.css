@@ -8,11 +8,11 @@
 }
 
 #mainHBox{
-    -fx-background-image: url("../../resources/images/background_image.jpg");
+    -fx-background-image: url("../images/background_image.jpg");
 }
 
 #tabPlayerPane{
-    -fx-background-image: url("../../resources/images/player_background.jpg");
+    -fx-background-image: url("../images/player_background.jpg");
 }
 
 .neck-label{
@@ -54,49 +54,49 @@
 }
 
 .CButton {
-    -fx-background-color: #444477
+    -fx-background-color: #D2691E
 }
 
 .CisButton {
-    -fx-background-color: #447744
+    -fx-background-color: #DEB887
 }
 
 .DButton {
-    -fx-background-color: #774444
+    -fx-background-color: #5B2020
 }
 
 .DisButton {
-    -fx-background-color: #447777
+    -fx-background-color: #B8860B
 }
 
 .EButton {
-    -fx-background-color: #774477
+    -fx-background-color: #DAA520
 }
 
 .FButton {
-    -fx-background-color: #774400
+    -fx-background-color: #8B4513
 }
 
 .FisButton {
-    -fx-background-color: #770077
+    -fx-background-color: #CD853F
 }
 
 .GButton {
-    -fx-background-color: #004477
+    -fx-background-color: #A0522D
 }
 
 .GisButton {
-    -fx-background-color: #7744FF
+    -fx-background-color: #D2B48C
 }
 
 .AButton {
-    -fx-background-color: #77FF77
+    -fx-background-color: #AF7817
 }
 
 .BButton {
-    -fx-background-color: #FF4477
+    -fx-background-color: #C85A17
 }
 
 .HButton {
-    -fx-background-color: #CCCCCC
+    -fx-background-color: #7E3517
 }

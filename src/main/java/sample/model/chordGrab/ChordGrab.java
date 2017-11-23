@@ -20,7 +20,7 @@ public class ChordGrab {
         this(source.chord, source.neck);
         this.indicesOnStrings.clear();
         this.indicesOnStrings.addAll(source.indicesOnStrings);
-        estimate();
+        grade = ChordGrabEstimator.estimate(this);
     }
 
     public ChordGrab(List<Integer> indices, Chord chord, Neck neck){
@@ -28,8 +28,7 @@ public class ChordGrab {
         this.neck = neck;
         indicesOnStrings = indices;
         makeFirst();
-        estimate();
-        //makeBest();
+        grade = ChordGrabEstimator.estimate(this);
     }
 
     public ChordGrab(Chord chord, Neck neck){
@@ -40,7 +39,7 @@ public class ChordGrab {
         for(int string = 0; string < neck.getNumberOfStrings(); string++){
             searchSoundOnString(string);
         }
-        highlightGrab();
+        highlight();
     }
 
     private void searchSoundOnString(int string) {
@@ -55,7 +54,7 @@ public class ChordGrab {
         return chord.getIncludedSoundsNames().contains(neck.getString(string).getSound(fret).getName());
     }
 
-    public void highlightGrab(){
+    public void highlight(){
         for(int i = 0; i < neck.getNumberOfStrings(); i++){
             for(int j = 0; j < neck.getString(i).getNumberOfSounds(); j++){
                 if(indicesOnStrings.get(i) == j)
@@ -67,59 +66,46 @@ public class ChordGrab {
     }
 
     public boolean makeNext(){
-        boolean foundNext = false;
         boolean isLast = false;
+        boolean foundNext = false;
         int string = 0;
         while(!foundNext && string < neck.getNumberOfStrings()){
-            int fret = indicesOnStrings.get(string) + 1;
-            searchSoundOnString(string);
-            while(!foundNext && fret < neck.getString(string).getNumberOfSounds()){
-                if(isSoundFound(string, fret)) {
-                    indicesOnStrings.set(string, fret);
-                    foundNext = true;
-                }
-                if(isLastTry(string, fret)){
+            int nextIndexOnString = findNextSoundIndexOnString(string, indicesOnStrings.get(string));
+            if(nextIndexOnString == -1){
+                if(string == neck.getNumberOfStrings() - 1){
                     isLast = true;
                 }
-                fret++;
+                searchSoundOnString(string);
+            } else {
+                indicesOnStrings.set(string, nextIndexOnString);
+                foundNext = true;
             }
             string++;
         }
-        estimate();
+        grade = ChordGrabEstimator.estimate(this);
         return !isLast;
     }
 
-    private boolean isLastTry(int string, int fret) {
-        return string == neck.getNumberOfStrings() - 1 && fret == neck.getString(string).getNumberOfSounds() - 1;
-    }
-
-    public void estimate(){
-        int maxDist = 0;
-        int lastFret = 0;
-        for(int index : indicesOnStrings){
-            if(index > lastFret){
-                lastFret = index;
-            }
-            for(int indexCompare: indicesOnStrings){
-                if(index != 0 && indexCompare != 0) {
-                    int dist = Math.abs(index - indexCompare);
-                    if (dist > maxDist) {
-                        maxDist = dist;
-                    }
-                }
-            }
+    private int findNextSoundIndexOnString(int string, int fret){
+        int index = fret + 1;
+        int stringsLength = neck.getStringsLength();
+        while(index < stringsLength && !isSoundFound(string, index)){
+            index++;
         }
-
-
-        this.grade = (100-maxDist);
-        //grade /= (double)lastFret;
+        if(index >= stringsLength)
+            index = -1;
+        return index;
     }
 
-    public List getIndicesOnStrings(){
+    public List<Integer> getIndicesOnStrings(){
         return indicesOnStrings;
     }
 
     public double getGrade() {
         return grade;
+    }
+
+    public Neck getNeck(){
+        return neck;
     }
 }
