@@ -15,7 +15,7 @@ public class ChordGrabEstimator {
         double lastFret = lastFretPosition(indicesOnStrings);
         double fingers = numberOfFingers(indicesOnStrings);
 
-        grade = 100 - maxDist - lastFret/5 - fingers;
+        grade = 100 - maxDist - lastFret - fingers;
 
         return grade;
     }
@@ -42,11 +42,9 @@ public class ChordGrabEstimator {
         double maxDist = 0;
         for(int index : indices) {
             for (int indexCompare : indices) {
-                if (index != 0 && indexCompare != 0) {
-                    int dist = Math.abs(index - indexCompare);
-                    if (dist > maxDist) {
-                        maxDist = dist;
-                    }
+                int dist = Math.abs(index - indexCompare);
+                if (dist > maxDist) {
+                    maxDist = dist;
                 }
             }
         }

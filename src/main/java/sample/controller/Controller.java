@@ -56,7 +56,7 @@ public class Controller {
         });
         addNeckButtons();
         addMenuButtons();
-        addChords();
+        addChordsButtons();
     }
 
     private void addNeckButtons() {
@@ -97,7 +97,7 @@ public class Controller {
         menuButtonsPane.getChildren().add(vBox);
     }
 
-    private void addChords() {
+    private void addChordsButtons() {
         VBox vBox = new VBox();
         Button button = getLightAllButton();
         vBox.getChildren().add(button);
